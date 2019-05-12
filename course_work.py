@@ -55,6 +55,9 @@ class MainWindow(QMainWindow):
         self.mw = TOP()
         self.mw.show()
 
+    def clock(self):
+        self.cl = Clock()
+
 
     def university_VSPU(self):
 
@@ -257,6 +260,25 @@ class TOP(QMainWindow):
         table.resizeColumnsToContents()
         grid_layout.addWidget(table, 0, 0)
         self.show()
+
+class Clock(QtWidgets.QMainWindow):
+    def __init__(self, parent=None):
+        super(Clock, self).__init__(parent)
+
+        self.ui = uic.loadUi('clock.ui')
+        self.ui.setWindowTitle('Помічник абітурієнта')
+        self.ui.setWindowIcon(QIcon('sova_1.png'))
+        timer = QtCore.QTimer(self)
+        timer.start(1000)
+        timer.timeout.connect(self.showTime)
+        self.showTime()
+
+        self.ui.show()
+
+    def showTime(self):
+        time = QtCore.QTime.currentTime()
+        text = time.toString('hh:mm')
+        self.ui.lcdNumber.display(text)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
