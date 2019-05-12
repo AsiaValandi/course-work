@@ -182,6 +182,77 @@ class MainWindow(QMainWindow):
             text += row
         self.work_ui.plainTextEdit.setPlainText(text)
 
+class TOP(QMainWindow):
+
+    def __init__(self):
+        QMainWindow.__init__(self)
+
+        self.setMinimumSize(QSize(1500, 600))
+
+        self.setWindowTitle("Консолідований рейтинг вищів України 2018")
+        self.setWindowIcon(QIcon('sova_1.png'))
+        central_widget = QWidget(self)
+        self.setCentralWidget(central_widget)
+
+        grid_layout = QGridLayout()
+        central_widget.setLayout(grid_layout)
+
+        table = QTableWidget(self)
+        table.setColumnCount(6)
+        table.setRowCount(273)
+
+
+        table.setHorizontalHeaderLabels(["Назва навчального закладу", "Місце у загальному рейтингу", "ТОП 200 України",
+                                         "Scopus", "Бал ЗНО на контракт", "Підсумковий бал"])
+
+        rb = xlrd.open_workbook('топ университетов украины.xlsx')
+        sheet = rb.sheet_by_index(0)
+
+        val = sheet.col_values(0)
+        for i, entry in enumerate(val):
+            table.setRowCount(i + 1)
+            item = QTableWidgetItem(0)
+            item.setText(str(entry))
+            table.setItem(i, 0, item)
+
+        val2 = sheet.col_values(1)
+        for q, entry in enumerate(val2):
+            table.setRowCount(i + 1)
+            item = QTableWidgetItem(0)
+            item.setText(str(entry))
+            table.setItem(q, 1, item)
+
+        val3 = sheet.col_values(2)
+        for w, entry in enumerate(val3):
+            table.setRowCount(i + 1)
+            item = QTableWidgetItem(0)
+            item.setText(str(entry))
+            table.setItem(w, 2, item)
+
+        val4 = sheet.col_values(3)
+        for a, entry in enumerate(val4):
+            table.setRowCount(i + 1)
+            item = QTableWidgetItem(0)
+            item.setText(str(entry))
+            table.setItem(a, 3, item)
+
+        val5 = sheet.col_values(4)
+        for s, entry in enumerate(val5):
+            table.setRowCount(i + 1)
+            item = QTableWidgetItem(0)
+            item.setText(str(entry))
+            table.setItem(s, 4, item)
+
+        val6 = sheet.col_values(5)
+        for v, entry in enumerate(val6):
+            table.setRowCount(i + 1)
+            item = QTableWidgetItem(0)
+            item.setText(str(entry))
+            table.setItem(v, 5, item)
+
+        table.resizeColumnsToContents()
+        grid_layout.addWidget(table, 0, 0)
+        self.show()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
