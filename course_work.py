@@ -59,6 +59,9 @@ class MainWindow(QMainWindow):
         self.cl = Clock()
 
 
+    def calendar(self):
+        self.cal = Calendar()
+
     def university_VSPU(self):
 
             self.vspu = uic.loadUi('university_VSPU.ui')
@@ -261,6 +264,7 @@ class TOP(QMainWindow):
         grid_layout.addWidget(table, 0, 0)
         self.show()
 
+
 class Clock(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(Clock, self).__init__(parent)
@@ -279,6 +283,22 @@ class Clock(QtWidgets.QMainWindow):
         time = QtCore.QTime.currentTime()
         text = time.toString('hh:mm')
         self.ui.lcdNumber.display(text)
+
+        
+class Calendar(QtWidgets.QMainWindow):
+    def __init__(self, parent=None):
+        super(Calendar, self).__init__(parent)
+
+        self.ui = uic.loadUi('calendar.ui')
+        self.ui.setWindowTitle('Помічник абітурієнта')
+        self.ui.setWindowIcon(QIcon('sova_1.png'))
+
+        self.ui.calendarWidget.clicked.connect(self.show_date)
+        self.ui.show()
+
+    def show_date(self, date):
+        self.ui.label.setText(date.toString())
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
