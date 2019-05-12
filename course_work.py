@@ -51,6 +51,10 @@ class MainWindow(QMainWindow):
         self.path = os.getcwd()
         self.ui.show()
 
+    def top(self):
+        self.mw = TOP()
+        self.mw.show()
+
 
     def university_VSPU(self):
 
